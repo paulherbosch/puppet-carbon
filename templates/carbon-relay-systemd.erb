@@ -7,19 +7,20 @@ Type=simple
 LimitNOFILE=65535
 TimeoutStopSec=20
 PermissionsStartOnly=true
-ExecStartPre=/bin/mkdir -p /var/run/carbon/
-ExecStartPre=/bin/chown <%=@user%>:<%=@group%> /var/run/carbon/
+RuntimeDirectory=carbon
+RuntimeDirectoryMode=755
+PIDFile=/run/carbon/carbon-relay-<%=@title%>.pid
 ExecStart=/opt/graphite/bin/carbon-relay.py \
         --config=/etc/carbon/carbon-relay.conf \
         --debug \
         --instance=<%=@title%> \
-        --pidfile=/var/run/carbon/carbon-relay-<%=@title%>.pid \
+        --pidfile=/run/carbon/carbon-relay-<%=@title%>.pid \
         --logdir=<%=@log_dir%> start
 ExecStop=/opt/graphite/bin/carbon-relay.py \
         --config=/etc/carbon/carbon-relay.conf \
         --debug \
         --instance=<%=@title%> \
-        --pidfile=/var/run/carbon/carbon-relay-<%=@title%>.pid \
+        --pidfile=/run/carbon/carbon-relay-<%=@title%>.pid \
         --logdir=<%=@log_dir%> stop
 User=<%=@user%>
 Group=<%=@group%>
