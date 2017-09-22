@@ -1,0 +1,27 @@
+## Managed by puppet
+[Unit]
+Description=Carbon-cache instance <%=@title%>
+
+[Service]
+Type=simple
+LimitNOFILE=65535
+TimeoutStopSec=20
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /var/run/carbon/
+ExecStartPre=/bin/chown <%=@user%>:<%=@group%> /var/run/carbon/
+ExecStart=/opt/graphite/bin/carbon-cache.py \
+        --config=/etc/carbon/carbon-cache.conf \
+        --debug \
+        --instance=<%=@title%> \
+        --pidfile=/var/run/carbon/carbon-cache-<%=@title%>.pid \
+        --logdir=<%=@log_dir%> start
+ExecStop=/opt/graphite/bin/carbon-cache.py \
+        --config=/etc/carbon/carbon-cache.conf \
+        --debug \
+        --instance=<%=@title%> \
+        --pidfile=/var/run/carbon/carbon-cache-<%=@title%>.pid \
+        --logdir=<%=@log_dir%> stop
+User=<%=@user%>
+Group=<%=@group%>
+[Install]
+WantedBy=multi-user.target
