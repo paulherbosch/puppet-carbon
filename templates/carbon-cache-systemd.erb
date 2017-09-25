@@ -7,22 +7,20 @@ Type=simple
 LimitNOFILE=65535
 TimeoutStopSec=20
 PermissionsStartOnly=true
-RuntimeDirectory=carbon
+RuntimeDirectory=carbon-cache-<%=@title%>
 RuntimeDirectoryMode=755
-PIDFile=/run/carbon/carbon-cache-<%=@title%>.pid
-ExecStartPre=/bin/mkdir -p /var/run/carbon/
-ExecStartPre=/bin/chown <%=@user%>:<%=@group%> /var/run/carbon/
+PIDFile=/run/carbon-cache-<%=@title%>/carbon-cache.pid
 ExecStart=/opt/graphite/bin/carbon-cache.py \
         --config=/etc/carbon/carbon-cache.conf \
         --debug \
         --instance=<%=@title%> \
-        --pidfile=/run/carbon/carbon-cache-<%=@title%>.pid \
+        --pidfile=/run/carbon-cache-<%=@title%>/carbon-cache.pid \
         --logdir=<%=@log_dir%> start
 ExecStop=/opt/graphite/bin/carbon-cache.py \
         --config=/etc/carbon/carbon-cache.conf \
         --debug \
         --instance=<%=@title%> \
-        --pidfile=/run/carbon/carbon-cache-<%=@title%>.pid \
+        --pidfile=/run/carbon-cache-<%=@title%>/carbon-cache.pid \
         --logdir=<%=@log_dir%> stop
 User=<%=@user%>
 Group=<%=@group%>

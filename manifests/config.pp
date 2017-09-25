@@ -5,7 +5,8 @@ class carbon::config (
   $storage_dir,
   $log_dir,
   $user,
-  $group
+  $group,
+  $storage_schema
 ) {
 
   file { $config_dir :
@@ -34,6 +35,14 @@ class carbon::config (
     group   => $group,
     replace => false,
     source  => "puppet:///modules/${module_name}/storage-schemas.conf"
+  }
+
+  augeas { "carbon-storage_schema":
+    lens    => 'Puppet.lns',
+    incl    => "${config_dir}/storage-schemas.conf",
+    context => "/files/${config_dir}/storage-schemas.conf",
+    changes => $storage_schema,
+    require => File["${config_dir}/storage-schemas.conf"],
   }
 
   file { "${config_dir}/storage-aggregation.conf":
