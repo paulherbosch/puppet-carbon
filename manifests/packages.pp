@@ -5,9 +5,9 @@ class carbon::packages (
   $ensure = 'present',
 ) {
 
-	$python_pip = 'python2-pip'
+  $python_pip = 'python2-pip'
 
-  package { ['cairo-devel','libffi-devel','python-devel',$python_pip]:
+  package { ['gcc','cairo-devel','libffi-devel','python-devel',$python_pip]:
     ensure => $ensure
   }
 
