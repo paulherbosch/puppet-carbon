@@ -33,6 +33,11 @@ class carbon::packages (
     provider => 'pip',
     require  => Package[$python_pip]
   }
+  package { ['service_identity']:
+    ensure   => 'present',
+    provider => 'pip',
+    require  => Package[$python_pip]
+  }
 
   # BUG: https://serverfault.com/questions/358151/pip-install-carbon-looks-like-it-works-but-pip-disagrees-afterward
   exec {
