@@ -24,5 +24,9 @@ ExecStop=/opt/graphite/bin/carbon-relay.py \
         --logdir=<%=@log_dir%> stop
 User=<%=@user%>
 Group=<%=@group%>
+SyslogIdentifier=carbon-relay-<%=title%>
+StandardOutput=syslog
+StandardError=syslog
+
 [Install]
 WantedBy=multi-user.target

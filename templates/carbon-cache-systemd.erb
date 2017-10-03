@@ -24,6 +24,9 @@ ExecStop=/opt/graphite/bin/carbon-cache.py \
         --logdir=<%=@log_dir%> stop
 User=<%=@user%>
 Group=<%=@group%>
+SyslogIdentifier=carbon-cache-<%=title%>
+StandardOutput=syslog
+StandardError=syslog
 
 [Install]
 WantedBy=multi-user.target
