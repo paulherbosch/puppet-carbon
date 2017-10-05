@@ -33,7 +33,7 @@ class carbon::packages (
     provider => 'pip',
     require  => Package[$python_pip]
   }
-  package { ['service_identity']:
+  package { ['service-identity']:
     ensure   => 'present',
     provider => 'pip',
     require  => Package[$python_pip]
